@@ -1,21 +1,40 @@
 <!doctype html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Redirecting…</title>
 
-  <!-- SEO-friendly canonical -->
-  <link rel="canonical" href="https://portal.janvont.com/">
+  <!-- Canonical (SEO hint) -->
+  <link rel="canonical" href="https://portal.janvont.com/" />
 
-  <!-- Fallback redirect -->
-  <meta http-equiv="refresh" content="0; url=https://portal.janvont.com/">
-
-  <!-- Primary redirect -->
-  <script>
-    window.location.replace("https://portal.janvont.com/");
-  </script>
+  <!-- Fallback for browsers with JS disabled -->
+  <meta http-equiv="refresh" content="0; url=https://portal.janvont.com/" />
 </head>
+
 <body>
-  <p>Přesměrovávám na <a href="https://portal.janvont.com/">portal.janvont.com</a>…</p>
+  <noscript>
+    <p>
+      Přesměrovávám na
+      <a href="https://portal.janvont.com/">https://portal.janvont.com/</a>
+    </p>
+  </noscript>
+
+  <script>
+    (function () {
+      const TARGET_ORIGIN = "https://portal.janvont.com";
+
+      // Keep path + query + hash, so:
+      // /?shot=ZPM_003  -> /?shot=ZPM_003
+      // /shots/123?x=1  -> /shots/123?x=1
+      const path = window.location.pathname || "/";
+      const query = window.location.search || "";
+      const hash = window.location.hash || "";
+
+      const targetUrl = TARGET_ORIGIN + path + query + hash;
+
+      window.location.replace(targetUrl);
+    })();
+  </script>
 </body>
 </html>
